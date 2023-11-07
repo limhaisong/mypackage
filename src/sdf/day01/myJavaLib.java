@@ -6,6 +6,7 @@ public class myJavaLib {
 
     Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
 
+    
     public boolean isNumeric_chk(String strNum) {
         if (strNum == null) {
             return false;
