@@ -1,0 +1,699 @@
+
+1.	Weather station:
+select CITY, length(CITY) from STATION order by length(CITY) ASC, CITY ASC limit 1;
+select CITY, length(CITY) from STATION order by length(CITY) DESC, CITY ASC limit 1;
+
+2.	Binary tree:
+SELECT BST.N, CASE
+    WHEN BST.P IS NULL THEN 'Root' 
+    WHEN Parents.P IS NULL THEN 'Leaf'
+    ELSE 'Inner' END
+FROM BST
+LEFT JOIN (SELECT DISTINCT P FROM BST ) Parents on Parents.P=BST.N
+ORDER BY BST.N
+
+•	1 Leaf
+•	2 Inner
+•	3 Leaf
+•	4 Inner
+•	5 Leaf
+•	6 Inner
+•	7 Leaf
+•	8 Leaf
+•	9 Inner
+•	10 Leaf
+•	11 Inner
+•	12 Leaf
+•	13 Inner
+•	14 Leaf
+•	15 Roo
+
+Select distinct city from station where right(city,1) <> 'a' 
+and right(city,1) <> 'e'
+and right(city,1) <> 'i' 
+and right(city,1) <> 'o' 
+and right(city,1) <> 'u';
+
+Select distinct city from station 
+where right(city,1) <> 'a' 
+and right(city,1) <> 'e'
+and right(city,1) <> 'i' 
+and right(city,1) <> 'o' 
+and right(city,1) <> 'u'
+or
+(lower(left(city,1)) <> 'a' 
+and lower(left(city,1)) <> 'e'
+and lower(left(city,1)) <> 'i' 
+and lower(left(city,1)) <> 'o' 
+and lower(left(city,1)) <> 'u') order by city;
+
+SELECT DISTINCT City FROM Station WHERE (City NOT LIKE '%A' AND City NOT LIKE '%E' AND City NOT LIKE '%I' AND City NOT LIKE '%O' AND City NOT LIKE '%U') OR (City NOT LIKE 'A%' AND City NOT LIKE 'E%' AND City NOT LIKE 'I%' AND City NOT LIKE 'O%' AND City NOT LIKE 'U%') ORDER BY City
+
+select distinct city
+from station
+where lower(city) NOT LIKE '[aeiou]%[aeiou]'
+order by city
+
+
+SELECT
+    cast(SQRT(POWER(MAX(LAT_N) - MIN(LAT_N),2) + POWER(MAX(LONG_W) - MIN(LONG_W),2)) as decimal(10,4))
+FROM STATION;
+
+select c.company_code,
+    c.founder,
+    (select count(1) from Lead_Manager lm where lm.company_code = c.company_code) as lmcount,
+    (select count(1) from Senior_Manager sm where sm.company_code = c.company_code) as smcount,
+    (select count(1) from Manager m where m.company_code = c.company_code) as mcount,
+    (select count(1) from employee e where e.company_code = c.company_code) as ecount
+from company as c  order by c.company_code
+
+select c.company_code, c.founder,
+(select count(*) from Lead_Manager l where l.company_code = c.company_code),
+(select count(*) from Senior_Manager l where l.company_code = c.company_code),
+(select count(*) from Manager l where l.company_code = c.company_code),
+(select count(*) from Employee l where l.company_code = c.company_code)
+from Company c
+order by c.company_code;
+
+
+C1 Angela 1 2 5 13 
+C10 Earl 1 1 2 3 
+C100 Aaron 1 2 4 10 
+C11 Robert 1 1 1 1 
+C12 Amy 1 2 6 14 
+C13 Pamela 1 2 5 14 
+C14 Maria 1 1 3 5 
+C15 Joe 1 1 2 3 
+C16 Linda 1 1 3 5 
+C17 Melissa 1 2 3 7 
+C18 Carol 1 2 5 6 
+C19 Paula 1 2 4 7 
+C2 Frank 1 1 1 3 
+C20 Marilyn 1 1 2 2 
+C21 Jennifer 1 1 3 7 
+C22 Harry 1 1 3 6 
+C23 David 1 1 1 2 
+C24 Julia 1 1 2 6 
+C25 Kevin 1 1 2 5 
+C26 Paul 1 1 1 3 
+C27 James 1 1 1 3 
+C28 Kelly 1 2 5 9 
+C29 Robin 1 2 4 9 
+C3 Patrick 1 2 2 5 
+C30 Ralph 1 1 2 5 
+C31 Gloria 1 1 1 3 
+C32 Victor 1 2 4 8 
+C33 David 1 2 5 12 
+C34 Joyce 1 2 6 10 
+C35 Donna 1 2 6 12 
+C36 Michelle 1 2 5 11 
+C37 Stephanie 1 1 2 5 
+C38 Gerald 1 2 4 6 
+C39 Walter 1 1 3 7 
+C4 Lisa 1 1 1 1 
+C40 Christina 1 1 3 6 
+C41 Brandon 1 2 3 7 
+C42 Elizabeth 1 2 4 8 
+C43 Joseph 1 2 4 6 
+C44 Lawrence 1 1 3 4 
+C45 Marilyn 1 1 1 3 
+C46 Lori 1 2 3 9 
+C47 Matthew 1 2 3 4 
+C48 Jesse 1 1 3 3 
+C49 John 1 1 3 8 
+C5 Kimberly 1 2 3 9 
+C50 Martha 1 1 2 5 
+C51 Timothy 1 2 5 12 
+C52 Christine 1 1 2 2 
+C53 Anthony 1 1 1 1 
+C54 Paula 1 2 4 7 
+C55 Kimberly 1 2 2 3 
+C56 Louise 1 1 1 3 
+C57 Martin 1 1 2 5 
+C58 Paul 1 2 4 8 
+C59 Antonio 1 1 2 4 
+C6 Bonnie 1 1 2 6 
+C60 Jacqueline 1 1 1 2 
+C61 Diana 1 1 1 1 
+C62 John 1 2 5 11 
+C63 Dorothy 1 2 5 7 
+C64 Evelyn 1 1 1 2 
+C65 Phillip 1 2 4 8 
+C66 Evelyn 1 2 4 11 
+C67 Debra 1 1 1 3 
+C68 David 1 2 5 9 
+C69 Willie 1 1 1 3 
+C7 Michael 1 1 1 2 
+C70 Brandon 1 2 4 7 
+C71 Ann 1 2 5 10 
+C72 Emily 1 2 3 7 
+C73 Dorothy 1 1 1 2 
+C74 Jonathan 1 2 4 7 
+C75 Dorothy 1 1 2 4 
+C76 Marilyn 1 2 5 12 
+C77 Norma 1 2 5 10 
+C78 Nancy 1 2 3 7 
+C79 Andrew 1 1 2 2 
+C8 Todd 1 1 1 3 
+C80 Keith 1 1 1 2 
+C81 Benjamin 1 1 3 9 
+C82 Charles 1 1 2 3 
+C83 Alan 1 2 3 4 
+C84 Tammy 1 1 1 3 
+C85 Anna 1 2 4 8 
+C86 James 1 1 3 5 
+C87 Robin 1 2 3 5 
+C88 Jean 1 1 2 3 
+C89 Andrew 1 2 4 7 
+C9 Joe 1 1 3 6 
+C90 Roy 1 1 2 3 
+C91 Diana 1 2 2 2 
+C92 Christina 1 1 1 3 
+C93 Jesse 1 1 2 2 
+C94 Joyce 1 2 5 13 
+C95 Patricia 1 1 3 5 
+C96 Gregory 1 1 2 2 
+C97 Brian 1 1 1 1 
+C98 Christine 1 1 2 5 
+C99 Lillian 1 1 2 6 
+
+
+
+
+
+
+Select 
+CASE 
+when A=B and A=C then 'Equilateral'
+WHEN (A=B AND A+B>C) OR (B=C AND B+C>A) OR (A=C AND A+C>B) then 'Isosceles'
+when A+B>C AND A+C>B AND B+C>A then 'Scalene'
+Else 'Not A Triangle'
+end
+from TRIANGLES;
+
+
+Equilateral 
+Equilateral 
+Isosceles 
+Equilateral 
+Isosceles 
+Equilateral 
+Scalene 
+Not A Triangle 
+Scalene 
+Scalene 
+Scalene 
+Not A Triangle 
+Not A Triangle 
+Scalene 
+Equilateral
+
+select Concat(Name,concat(concat('(',
+CASE 
+when Occupation = 'Doctor' then 'D'
+when Occupation = 'Professor' then 'P'
+when Occupation = 'Singer' then 'S'
+when Occupation = 'Actor' then 'A'
+else 'F'
+end), ')'))
+from Occupations order by Name ASC;
+
+SELECT Concat(Concat(Concat(Concat('There are total ', count(*)), ' '), lower(Occupation)),'s.') from Occupations Group by Occupation order by count(*) ASC, Occupation ASC;
+
+SELECT CONCAT(Name, '(', LEFT(Occupation, 1), ')') FROM Occupations ORDER BY Name;
+SELECT CONCAT('There are total ', COUNT(*), ' ', LOWER(Occupation), 's.') FROM Occupations GROUP BY Occupation ORDER BY COUNT(*);
+
+select (concat(name, concat('(',left(occupation,1),')')))  from occupations order by name;
+select (concat('There are a total of ', count(*), ' ',lower(occupation), 's.')) from occupations group by occupation order by count(*);
+
+SELECT Customercity, 
+       CustomerName, 
+       OrderAmount, 
+       COUNT(OrderID) OVER(PARTITION BY Customercity) AS CountOfOrders, 
+       AVG(Orderamount) OVER(PARTITION BY Customercity) AS AvgOrderAmount, 
+       MIN(OrderAmount) OVER(PARTITION BY Customercity) AS MinOrderAmount, 
+       SUM(Orderamount) OVER(PARTITION BY Customercity) TotalOrderAmount
+FROM [dbo].[Orders];
+
+
+
+
+
+
+
+SELECT MAX(C1), MAX(C2), MAX(C3), MAX(C4) FROM
+(SELECT
+COUNT(*) Rank,
+IF (STRCMP(T1.Occupation, 'Doctor') = 0, T1.Name, NULL) AS C1,
+IF (STRCMP(T1.Occupation, 'Professor') = 0, T1.Name, NULL) AS C2,
+IF (STRCMP(T1.Occupation, 'Singer') = 0, T1.Name, NULL) AS C3,
+IF (STRCMP(T1.Occupation, 'Actor ') = 0, T1.Name, NULL) AS C4
+FROM Occupations T1 LEFT JOIN Occupations T2 ON T1.Occupation = T2.Occupation AND STRCMP(T1.Name, T2.Name) >= 0 GROUP BY T1.Name, T1.Occupation ORDER BY Rank, T1.Name) AS MyOccupations GROUP BY Rank;
+
+SELECT [Doctor],[Professor],[Singer],[Actor] FROM (
+SELECT *
+FROM (
+    select NAME, RANK() OVER (PARTITION BY OCCUPATION ORDER BY NAME ASC) AS RANK, OCCUPATION FROM OCCUPATIONS
+) as s
+PIVOT
+(
+    MAX(NAME)
+    FOR OCCUPATION IN ([Doctor],[Professor],[Singer],[Actor])
+)
+PT) PT2;
+
+DECLARE @Doctor AS Table (id int identity(1, 1), Name varchar(50))
+DECLARE @Professor AS Table (id int identity(1, 1), Name varchar(50))
+DECLARE @Singer AS Table (id int identity(1, 1), Name varchar(50))
+DECLARE @Actor AS Table (id int identity(1, 1), Name varchar(50))
+
+insert into @Doctor(Name) SELECT Name from Occupations WHERE Occupation = 'Doctor' order by Name
+insert into @Professor(Name) SELECT Name from Occupations WHERE Occupation = 'Professor' order by Name
+insert into @Singer(Name) SELECT Name from Occupations WHERE Occupation = 'Singer' order by Name
+insert into @Actor(Name) SELECT Name from Occupations WHERE Occupation = 'Actor' order by Name
+
+SELECT
+ D.Name,
+ P.Name,
+ S.Name,
+ A.Name
+FROM
+	@Doctor AS D
+FULL OUTER JOIN 
+	@Professor AS P
+		ON D.id = P.id
+Full outer join
+	@Singer AS S
+		ON S.id = P.id
+FULL OUTER JOIN 
+	@Actor AS A
+		ON S.id = A.id
+;
+
+Aamina Ashley Christeen Eve 
+Julia Belvet Jane Jennifer 
+Priya Britney Jenny Ketty 
+NULL Maria Kristeen Samantha 
+NULL Meera NULL NULL 
+NULL Naomi NULL NULL 
+NULL Priyanka NULL NULL
+
+SELECT CAST( AVG(1.0 * LAT_N) AS NUMERIC(20,4))
+FROM
+(
+   SELECT LAT_N, 
+      ra = ROW_NUMBER() OVER (ORDER BY LAT_N, id),
+      rd = ROW_NUMBER() OVER (ORDER BY LAT_N DESC, id DESC)
+   FROM STATION
+) AS x
+WHERE ra BETWEEN rd - 1 AND rd + 1;
+
+DECLARE @Median real
+SELECT @Median = PERCENTILE_CONT(0.5) 
+  WITHIN GROUP (ORDER BY LAT_N) OVER ()
+FROM station
+print(@Median);
+SELECT FORMAT(@Median, 'N4') AS Median;
+
+SELECT Top 1 FORMAT(PERCENTILE_CONT(0.5)
+WITHIN GROUP (ORDER BY LAT_N)  OVER(),'N4')
+FROM STATION ;
+
+WITH fifty AS (SELECT LAT_N, ROW_NUMBER() OVER(ORDER BY LAT_N) r from STATION) SELECT CAST(ROUND(LAT_N, 4) as DECIMAL(20, 4)) FROM fifty where r = (SELECT COUNT(*)/2+1 FROM STATION);
+
+SELECT
+CONVERT(DECIMAL(10,4),(
+ (SELECT MAX(LAT_N) FROM
+   (SELECT TOP 50 PERCENT LAT_N FROM STATION ORDER BY LAT_N) AS BottomHalf)
+ +
+ (SELECT MIN(LAT_N) FROM
+   (SELECT TOP 50 PERCENT LAT_N FROM STATION ORDER BY LAT_N DESC) AS TopHalf)
+) / 2);
+•	83.8913
+•	83.8913
+
+
+declare @x int,@y int
+select @x=1,@y=20
+while @y>0
+    begin
+        print replicate('* ',@x)
+        set @y=@y-1
+        set @x=@x+1
+    end;
+
+WITH Numbers AS (
+SELECT N
+FROM (VALUES
+(1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20)
+) x(N)
+)
+SELECT RTRIM(REPLICATE('* ',N)) AS PR
+FROM Numbers
+ORDER BY N;
+
+DECLARE @i smallint = 2;
+DECLARE @j smallint;
+DECLARE @isPrime bit;
+DECLARE @result varchar(8000) = '';
+DECLARE @n int = 1001;
+
+WHILE @i < @n
+BEGIN
+    
+    SET @isPrime = 1;
+    SET @j = 2;
+    WHILE @j * @j <= @i
+    BEGIN
+        IF @i % @j = 0
+        BEGIN
+            SET @isPrime = 0;
+            BREAK;
+        END
+        
+        SET @j += 1;
+    END
+
+    IF @isPrime = 1
+        SET @result += CAST(@i AS varchar(4)) + '&';
+
+    SET @i += 1;
+
+END;
+
+SET @result = LEFT(@result, LEN(@result) - 1);
+SELECT @result;
+-------------------------
+declare @x varchar(1000)= '2'
+declare @c int=3
+declare @y int
+while(@c<1000)
+begin
+   set @y = 2
+   while(@y<=power(@c,0.5))
+       begin
+           if (@c % @y=0) begin set @y=@c*2 end
+           set @y = @y +1
+       end
+   if(@y<@c)
+       begin
+           set @x=@x+'&'+ cast(@c as varchar(4)) 
+       end
+    set @c=@c+2
+end
+
+select @x
+------------------------
+
+2&3&5&7&11&13&17&19&23&29&31&37&41&43&47&53&59&61&67&71&73&79&83&89&97&101&103&107&109&113&127&131&137&139&149&151&157&163&167&173&179&181&191&193&197&199&211&223&227&229&233&239&241&251&257&263&269&271&277&281&283&293&307&311&313&317&331&337&347&349&353&359&367&373&379&383&389&397&401&409&419&421&431&433&439&443&449&457&461&463&467&479&487&491&499&503&509&521&523&541&547&557&563&569&571&577&587&593&599&601&607&613&617&619&631&641&643&647&653&659&661&673&677&683&691&701&709&719&727&733&739&743&751&757&761&769&773&787&797&809&811&821&823&827&829&839&853&857&859&863&877&881&883&887&907&911&919&929&937&941&947&953&967&971&977&983&991&997
+
+
+
+SELECT DISTINCT COMPANY.NAME
+FROM COMPANY
+JOIN SALARY ON COMPANY.ID = SALARY.COMPANY_ID
+GROUP BY COMPANY.NAME
+HAVING AVG(SALARY.SALARY) >= 40000;
+
+select country.continent, avg(city.population) from city, country where city.countrycode=country.code group by country.continent;
+
+
+
+
+SELECT Name,Grade,Marks FROM Students,Grades WHERE Marks BETWEEN Min_Mark AND Max_Mark and Grade>=8 ORDER BY Grade desc,Name;
+SELECT null,Grade,Marks FROM Students,Grades WHERE Marks BETWEEN Min_Mark AND Max_Mark and Grade<8 ORDER BY Grade desc,Name,Marks;
+
+select case when grade>=8 then name else NULL end
+            , grade, marks 
+            from students, grades where marks >= min_mark and marks<= max_mark  order by grade desc,name;
+
+
+ select  IIF(Grade < 8, "NULL", Name)
+            , grade, marks 
+            from students, grades where marks >= min_mark and marks<= max_mark  order by grade desc,name;
+
+
+SELECT
+    H.hacker_id, H.name
+FROM
+    Hackers H
+    INNER JOIN Submissions S ON S.hacker_id = H.hacker_id
+    INNER JOIN Challenges C ON C.challenge_id = S.challenge_id
+    INNER JOIN Difficulty D ON D.difficulty_level = C.difficulty_level AND D.score = S.score
+GROUP BY H.hacker_id, H.name
+HAVING COUNT(*) > 1
+ORDER BY COUNT(*) DESC, H.hacker_id
+
+select 
+    hh.hacker_id, hh.name
+from 
+    hackers hh
+    inner join submissions ss on ss.hacker_id=hh.hacker_id
+    inner join challenges cc on cc.challenge_id=ss.challenge_id
+    inner join difficulty dd on dd.difficulty_level=cc.difficulty_level and dd.score=ss.score
+
+group by hh.hacker_id, hh.name
+having count(*)>1
+order by count(*) desc,  hh.hacker_id
+
+
+select country.continent, avg(city.population) 
+from city, country where city.countrycode=country.code 
+group by country.continent;
+
+select country.continent, avg(city.population)
+from city inner join country on city.countrycode=country.code
+group by country.continent;
+
+select 
+    sum(city.population)  
+from city inner join country on CITY.CountryCode = COUNTRY.Code  where country.continent='Asia';
+with counts as
+(
+select
+	h.hacker_id,
+	name,
+	count(*) as cnt
+from
+	hackers h
+	inner join challenges c on h.hacker_id = c.hacker_id
+group by
+	h.hacker_id,
+	name
+),
+countcount as
+(
+
+select
+	cnt,
+	count(*) as thiscount
+from
+	counts
+group by
+	cnt
+)
+
+SELECT
+	c.hacker_id,
+	c.name,
+	c.cnt
+from
+	counts c
+	inner join countcount cc on c.cnt = cc.cnt
+where
+	cc.thiscount = 1 or c.cnt = (select max(cnt) from counts)
+order by
+	cnt desc,
+	hacker_id
+;
+
+--select cast(sqrt(power((min(LAT_N)-min(LONG_W)),2)+power((max(LAT_N)-max(LONG_W)),2) ) as numeric(20,4))  from station;
+
+SELECT cast(sqrt(power(ABS(a-b),2) + power(ABS(c-d),2)) as numeric(20,4))
+FROM (SELECT MIN(LAT_N) A , MAX(LAT_N) B , MIN(LONG_W) C, MAX(LONG_W) D FROM STATION) X
+
+select format(long_w,'N4') from station where lat_n = 
+(select max(lat_n) as nn from station where lat_n<137.2345);
+SELECT cast(ABS(a-b) + ABS(c-d) as numeric(20,4))FROM (
+SELECT MIN(LAT_N) A , MAX(LAT_N) B , MIN(LONG_W) C, MAX(LONG_W) D FROM STATION) X
+
+	with Starts as (
+    select distinct
+        Task_ID
+        ,Start_Date
+        ,End_Date
+    from Projects
+    where not exists (
+            select 1
+            from Projects as P2
+            where P2.End_Date = dateadd(day,-1,Projects.End_Date)
+            )
+    )
+,Ends as (
+    select distinct
+        Task_ID
+        ,Start_Date
+        ,End_Date
+    from Projects
+    where not exists (
+            select 1
+            from Projects as P2
+            where P2.End_Date = dateadd(day,1,Projects.End_Date)
+            )    
+    )
+select
+    Start_Date
+    ,End_Date
+from (
+    select distinct
+        Starts.Start_Date
+        ,min(Ends.End_Date) as End_Date
+    from Starts
+    inner join Ends
+        on Ends.End_Date >= Starts.End_Date
+    group by Starts.Start_Date
+    ) as Projects
+order by datediff(day,Start_Date,End_Date) asc, Start_Date
+
+WITH ProjectList AS 
+(
+	SELECT 
+		ROW_NUMBER() OVER (ORDER BY Start_Date) 'Row',
+		Start_Date
+	FROM 
+		Projects
+	GROUP BY 
+		Start_Date
+)
+SELECT MIN(Start_Date), DATEADD(DAY, 1, MAX(Start_Date))
+FROM ProjectList 
+GROUP BY 
+	DATEDIFF(DAY, Row, Start_Date)
+ORDER BY 
+	DATEDIFF(DAY, MIN(Start_Date), MAX(Start_Date)), MIN(Start_Date)
+with mysal as(
+select ss.id as id, ss.name as name, pp.salary as my_sal
+from students ss inner join packages pp on ss.id=pp.id
+
+),
+frsal as(
+select ss.id as id, ss.name, ff.friend_id as fr_id, pp.salary as fr_sal
+from students ss inner join friends ff on ss.id=ff.id
+     inner join packages pp on ff.friend_id=pp.id
+
+)
+select mysal.name 
+from mysal inner join frsal on mysal.id = frsal.id
+where mysal.my_sal<frsal.fr_sal
+order by frsal.fr_sal;
+
+SELECT [STUDENTS].[Name] FROM [STUDENTS] 
+INNER JOIN [FRIENDS] AS [ME] ON [STUDENTS].[ID] = [ME].[ID] 
+INNER JOIN [PACKAGES] AS [MEP] ON [MEP].[ID] = [ME].[ID] 
+INNER JOIN [FRIENDS] AS [FRIEND] ON [STUDENTS].[ID] = [FRIEND].[ID] 
+INNER JOIN [PACKAGES] AS [PACKAGE] ON [PACKAGE].[ID] = [FRIEND].[Friend_ID] 
+WHERE [MEP].[Salary] < [PACKAGE].[Salary] 
+ORDER BY [PACKAGE].[Salary];
+
+select name 
+from students as me 
+inner join packages as pk on me.id=pk.id
+inner join friends as fr on fr.id=me.id
+inner join packages as frpk on frpk.id=fr.friend_id
+where pk.salary<frpk.salary
+order by frpk.salary;
+
+select distinct F1.x,F1.y from 
+(select row_number() over (order by x) as f1n, x,y from Functions) F1
+INNER JOIN 
+(select row_number() over (order by x) as f2n, x,y from Functions) 
+F2 on F1.X = F2.Y and F2.X = F1.Y and F1.x<=F1.y and F1.f1n != F2.f2n 
+order by f1.X;
+
+
+with aaa as(
+select
+a.contest_id, sum(d.total_views) as totv, sum(total_unique_views) as totuv
+from contests a
+join colleges b on a.contest_id=b.contest_id
+join challenges c on c.college_id = b.college_id
+join view_stats d on  d.challenge_id =c.challenge_id
+    group by a.contest_id
+)
+,
+bbb as
+(
+select
+a.contest_id, sum(d.total_submissions) as tots, sum(total_accepted_submissions) as totas
+from contests a
+join colleges b on a.contest_id=b.contest_id
+join challenges c on c.college_id = b.college_id
+join Submission_Stats  d on  d.challenge_id =c.challenge_id
+     group by a.contest_id
+)
+
+select a.contest_id, hacker_id, name, bbb.tots, bbb.totas, aaa.totv, aaa.totuv
+from contests a
+join aaa on a.contest_id=aaa.contest_id
+join bbb on a.contest_id=bbb.contest_id
+WHERE bbb.tots >0 OR bbb.totas> 0 OR aaa.totv >0 OR  aaa.totuv >0;
+
+with sb as (
+select ct.contest_id as contest_id, ct.hacker_id as hacker_id, ct.name as name, 
+sum(sb.total_submissions) as total_submissions,
+sum(sb.total_accepted_submissions) as total_accepted_submissions
+from contests as ct
+inner join colleges as cl on ct.contest_id=cl.contest_id
+inner join challenges as ch on cl.college_id=ch.college_id
+inner join submission_stats as sb on ch.challenge_id=sb.challenge_id
+group by ct.contest_id, ct.hacker_id, ct.name
+),
+tv as(
+select ct.contest_id as contest_id, ct.hacker_id as hacker_id, ct.name as name,  
+sum(vs.total_views) as total_views, sum(vs.total_unique_views) as total_unique_views 
+from contests as ct
+inner join colleges as cl on ct.contest_id=cl.contest_id
+inner join challenges as ch on cl.college_id=ch.college_id
+inner join view_stats as vs on ch.challenge_id=vs.challenge_id
+group by ct.contest_id, ct.hacker_id, ct.name
+)
+select sb.contest_id, sb.hacker_id, sb.name, sb.total_submissions, sb.total_accepted_submissions,
+tv.total_views, tv.total_unique_views
+from sb inner join tv on sb.contest_id=tv.contest_id
+order by sb.contest_id
+;
+
+Select submission_date, hacker_id, count(*) as count
+Into #temp 
+From submissions 
+Group by submission_date, hacker_id
+;
+Select t1.submission_date, 
+ (select count(*) from (
+     Select count(*) As count, hacker_id 
+     From #temp t2 where t2.submission_date <= t1.submission_date
+     Group by hacker_id 
+     Having count(*) = (
+         select count(distinct submission_date) from #temp t3
+         Where t3.submission_date <= t1.submission_date
+         ) 
+     ) data 
+ ), data.hacker_id, h.name
+From 
+ (select distinct submission_date from #temp)  t1 
+join
+ (select Min(hacker_id) As hacker_id , submission_date from #temp t5
+  Where /*t5.submission_date = t1.submission_date 
+  And */count = 
+   (select max(count)
+    from #temp t4
+    where t4.submission_date = t5.submission_date
+   )
+    Group by submission_date 
+ ) data on t1.submission_date = data.submission_date
+Join hackers h on data.hacker_id = h.hacker_id
+Order by t1.submission_date 
+;
+
+
+
