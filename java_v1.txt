@@ -1,0 +1,1402 @@
+1.	Sizes
+try
+{
+long x=sc.nextLong();
+System.out.println(x+" can be fitted in:");
+if(x>=-128 && x<=127)System.out.println("* byte");
+if (x>=-32768 && x<=32767)System.out.println("* short");
+if (x>=-2147483648 && x<=2147483647)System.out.println("* int");
+if (x>=-9223372036854775808L && x<=9223372036854775807L)System.out.println("* long");
+}
+catch(Exception e)
+{
+System.out.println(sc.next()+" can't be fitted anywhere.");
+}
+
+2.	Date and day
+    public static String findDay(int month, int day, int year) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH,month-1);
+        cal.set(Calendar.DAY_OF_MONTH,day);
+        cal.set(Calendar.YEAR,year);
+        String dayOfWeek = cal.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US).toUpperCase();
+        return dayOfWeek;
+    }
+
+3.	Currency
+
+String us = NumberFormat.getCurrencyInstance(Locale.US).format(payment);
+String india = NumberFormat.getCurrencyInstance(new Locale("en","in")).format(payment);
+String china = NumberFormat.getCurrencyInstance(Locale.CHINA).format(payment);
+String france = NumberFormat.getCurrencyInstance(Locale.FRANCE).format(payment);
+        
+System.out.println("US: " + us);
+System.out.println("India: " + india);
+System.out.println("China: " + china);
+          System.out.println("France: " + france);
+
+4.	Anagrams
+static boolean isAnagram(String a, String b) {
+        // Complete the function
+        String s1 = a;
+        String s2 = b;
+        s1=s1.toLowerCase();
+        s2=s2.toLowerCase();
+        
+        if(s1.length()==s2.length())
+        {
+            int[] arr = new int[256];
+            int[] brr = new int[256];
+            for (int i = 0; i < s1.length(); i++) {
+                arr[(int) s1.charAt(i)] += 1;
+                brr[(int) s2.charAt(i)] += 1;
+            }
+            for (int i = 0; i < 256; i++) {
+                if (arr[i] != brr[i])
+                    return false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+5.	Array sort
+String[] array = {"c", "a", "d", "z"}; 
+// Sort the array
+ Arrays.sort(array); 
+// Print the sorted array
+ System.out.println(Arrays.toString(array));
+[a, c, d, z]
+
+import java.util.Arrays;
+import java.util.Collections;
+
+public class Main {
+    public static void main(String[] args) {
+        String[] array = {"c", "a", "d", "z"};
+        
+        // Sort the array in reverse order
+        Arrays.sort(array, Collections.reverseOrder());
+        
+        // Print the sorted array
+        System.out.println(Arrays.toString(array));
+    }
+}
+[z, d, c, a]
+
+6.	Split
+String[] strings = s.split("['!?,._@ ]+");
+
+7.	Regex 1
+public class DuplicateWords {
+
+    public static void main(String[] args) {
+        String regex = "\\b(\\w+)(?:\\W+\\1\\b)+";
+        Pattern p = Pattern.compile(regex,Pattern.CASE_INSENSITIVE);
+        Scanner in = new Scanner(System.in);
+        int numSentences = Integer.parseInt(in.nextLine());
+        
+        while (numSentences-- > 0) {
+            String input = in.nextLine(); 
+            Matcher m = p.matcher(input);
+            
+            // Check for subsequences of input that match the compiled pattern
+            while (m.find()) {
+                input = input.replaceAll(m.group(), m.group(1));
+            }
+            // Prints the modified sentence.
+            System.out.println(input);
+        }
+        in.close();
+    }
+}
+
+8.	Regex 2
+    public static final String regularExpression = "^[A-Za-z]\\w{7,29}$";
+if (userName.matches(UsernameValidator.regularExpression)) {
+                System.out.println("Valid");
+            } else {
+                System.out.println("Invalid");
+            }           
+
+9.	Regex 3
+Pattern pattern = Pattern.compile("<([^>]+)>([^<]+)</\\1>");
+Matcher m = pattern.matcher(line);
+          int matches = 0;
+          while(m.find()) {
+              matches++;
+              System.out.println(m.group(2));
+          }
+          if(matches == 0) {
+              System.out.println("None");
+          }
+
+10.	Can win
+public static boolean find_path(int leap, int[] game, int x) {
+        if (x < 0) {
+            return false;
+        }
+        if (x > game.length - 1) {
+            return true;
+        }
+        if (game[x] != 0) {
+            return false;
+        }
+        game[x] = 5;
+        if (find_path(leap, game, x + 1)) {
+            return true;
+        }
+        if (find_path(leap, game, x + leap)) {
+            return true;
+        }
+        if (find_path(leap, game, x - 1)) {
+            return true;
+        }
+        game[x] = 0;
+        return false;
+    }
+
+    public static boolean canWin(int leap, int[] game) {
+        return find_path(leap, game, 0);
+    }
+
+11.	{()} – using stack
+public static boolean balanaced(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for(int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if(c =='[' || c == '(' || c == '{') {
+                stack.push(c);
+            }else if(c == ']') {
+                if(stack.isEmpty() || stack.pop() != '[') {
+                    return false;
+                }
+            }else if(c == ')') {
+                if(stack.isEmpty() || stack.pop() != '(') {
+                    return false;
+                }
+            }else if(c == '}') {
+                if(stack.isEmpty() || stack.pop() != '{') {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+12.	Generics
+class Printer
+{
+   //Write your code here
+       public <T> void printArray(T[] elements){
+       for (T element : elements){
+           System.out.println(element);
+       }
+   }
+}
+
+public class Solution {
+    public static void main( String args[] ) {
+        Printer myPrinter = new Printer();
+        Integer[] intArray = { 1, 2, 3 };
+        String[] stringArray = {"Hello", "World"};
+        myPrinter.printArray(intArray);
+        myPrinter.printArray(stringArray);
+        int count = 0;
+
+        for (Method method : Printer.class.getDeclaredMethods()) {
+            String name = method.getName();
+            if(name.equals("printArray"))
+                count++;
+        }
+        if(count > 1)System.out.println("Method overloading is not allowed!");
+    }
+}
+
+
+13.	Java comparator 
+// Write your Checker class here
+class Checker implements Comparator {
+    public int compare(Object o1,  Object o2) {
+        Player p1 = (Player) o1;
+        Player p2 = (Player) o2;
+        if (p2.score - p1.score == 0) return p1.name.compareTo(p2.name);
+        return p2.score - p1.score;
+    }
+}
+
+class Player{
+    String name;
+    int score;
+    
+    Player(String name, int score){
+        this.name = name;
+        this.score = score;
+    }
+}
+
+class Solution {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+
+        Player[] player = new Player[n];
+        Checker checker = new Checker();
+        
+        for(int i = 0; i < n; i++){
+            player[i] = new Player(scan.next(), scan.nextInt());
+        }
+        scan.close();
+     
+        Arrays.sort(player, checker);
+        for(int i = 0; i < player.length; i++){
+            System.out.printf("%s %s\n", player[i].name, player[i].score);
+        }
+    }
+}
+
+Sample Input
+5
+amy 100
+david 100
+heraldo 50
+aakansha 75
+aleksa 150
+Sample Output
+ aleksa 150
+ amy 100
+ david 100
+ aakansha 75
+ heraldo 50
+
+14.	Cgpa sort
+class Student{
+    private int id;
+    private String fname;
+    private double cgpa;
+    public Student(int id, String fname, double cgpa) {
+        super();
+        this.id = id;
+        this.fname = fname;
+        this.cgpa = cgpa;
+    }
+    public int getId() {
+        return id;
+    }
+    public String getFname() {
+        return fname;
+    }
+    public double getCgpa() {
+        return cgpa;
+    }
+}
+
+//Complete the code
+public class Solution
+{
+    public static void main(String[] args){
+        Scanner in = new Scanner(System.in);
+        int testCases = Integer.parseInt(in.nextLine());
+        
+        List<Student> studentList = new ArrayList<Student>();
+        while(testCases>0){
+            int id = in.nextInt();
+            String fname = in.next();
+            double cgpa = in.nextDouble();
+            
+            Student st = new Student(id, fname, cgpa);
+            studentList.add(st);
+            
+            testCases--;
+        }
+       Collections.sort(studentList,  Comparator.comparing(Student :: getCgpa).reversed().thenComparing(Student :: getFname).thenComparing(Student :: getId));
+          for(Student st: studentList){
+            System.out.println(st.getFname());
+        }
+    }
+}
+
+15.	Dequeue
+public class test {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Deque<Integer> deque = new ArrayDeque<>();
+        HashSet<Integer> set = new HashSet<>();
+        
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            int input = in.nextInt();
+            
+            deque.add(input);
+            set.add(input);
+            
+            if (deque.size() == m) {
+                if (set.size() > max) max = set.size();
+                int first = deque.remove();
+                if (!deque.contains(first)) set.remove(first);
+            }
+        }
+        System.out.println(max);
+    }
+}
+
+
+16.	extends
+class Animal{
+    void walk()
+    {
+        System.out.println("I am walking");
+    }
+}
+class Bird extends Animal
+
+17.	Abstract - extends
+abstract class Book{
+    String title;
+    abstract void setTitle(String s);
+    String getTitle(){
+        return title;
+    }
+}
+//Write MyBook class here
+class MyBook extends Book {
+    @Override
+    void setTitle(String s) {
+        title = s;
+    }
+}
+public static void main(String []args){
+        //Book new_novel=new Book(); This line prHMain.java:25: error: Book is abstract; cannot be instantiated
+        Scanner sc=new Scanner(System.in);
+        String title=sc.nextLine();
+        MyBook new_novel=new MyBook();
+        new_novel.setTitle(title);
+        System.out.println("The title is: "+new_novel.getTitle());
+          sc.close();
+        
+    }
+
+18.	Interface - implements
+interface AdvancedArithmetic{
+  int divisor_sum(int n);
+}
+//Write your code here
+class MyCalculator implements AdvancedArithmetic {
+    public int divisor_sum(int n) {
+        int sum=0;
+        for(int i=1;i<=n;i++) {
+            if(n%i==0)
+                sum+=i;
+        }
+        return sum;
+    }
+}
+
+class Solution{
+    public static void main(String []args){
+        MyCalculator my_calculator = new MyCalculator();
+        System.out.print("I implemented: ");
+        ImplementedInterfaceNames(my_calculator);
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        System.out.print(my_calculator.divisor_sum(n) + "\n");
+          sc.close();
+    }
+    /*
+     *  ImplementedInterfaceNames method takes an object and prints the name of the interfaces it implemented
+     */
+    static void ImplementedInterfaceNames(Object o){
+        Class[] theInterfaces = o.getClass().getInterfaces();
+        for (int i = 0; i < theInterfaces.length; i++){
+            String interfaceName = theInterfaces[i].getName();
+            System.out.println(interfaceName);
+        }
+    }
+}
+
+19.	Object Instanceof
+
+class Student{}
+class Rockstar{}
+class Hacker{}
+
+public class InstanceOFTutorial{
+   static String count(ArrayList mylist){
+      int a = 0,b = 0,c = 0;
+      for(int i = 0; i < mylist.size(); i++){
+         Object element=mylist.get(i);
+     if(element instanceof Student )
+        a++;
+     if(element instanceof Rockstar)
+        b++;
+     if(element instanceof Hacker)
+        c++;
+      }
+      String ret = Integer.toString(a)+" "+ Integer.toString(b)+" "+ Integer.toString(c);
+      return ret;
+   }
+
+   public static void main(String []args){
+      ArrayList mylist = new ArrayList();
+      Scanner sc = new Scanner(System.in);
+      int t = sc.nextInt();
+      for(int i=0; i<t; i++){
+         String s=sc.next();
+         if(s.equals("Student"))mylist.add(new Student());
+         if(s.equals("Rockstar"))mylist.add(new Rockstar());
+         if(s.equals("Hacker"))mylist.add(new Hacker());
+      }
+      System.out.println(count(mylist));
+   }
+}
+
+
+
+
+20.	Iterator
+public class JavaIterator
+{
+   static Iterator func(ArrayList mylist)
+   {
+      Iterator it=mylist.iterator();
+      while(it.hasNext())
+      {
+         Object element = it.next();
+         if(element instanceof String) //Hints: use instanceof operator
+            break;
+      }
+      return it;
+      
+   }
+
+   public static void main(String []argh)
+   {
+      ArrayList mylist = new ArrayList();
+      Scanner sc=new Scanner(System.in);
+      int n=sc.nextInt();
+      int m=sc.nextInt();
+      for(int i=0;i<n;i++)
+      {
+         mylist.add(sc.nextInt());
+      }
+      mylist.add("###");
+      for(int i=0;i<m;i++)
+      {
+         mylist.add(sc.next());
+      }
+      
+      
+      Iterator it=func(mylist);
+      while(it.hasNext())
+      {
+         Object element = it.next();
+         System.out.println((String)element);
+      }
+      
+   }
+}
+
+21.	MAP for each
+
+public void test2_UsingForEachAndMapEntry(){
+    long i = 0;
+    for (Map.Entry<Integer, Integer> pair : map.entrySet()) {
+        i += pair.getKey() + pair.getValue();
+    }
+    System.out.println(i);
+}
+
+@Test
+public void test5_UsingKeySetAndIterator(){
+    long i = 0;
+    Iterator<Integer> it = map.keySet().iterator();
+    while (it.hasNext()) {
+        Integer key = it.next();
+        i += key + map.get(key);
+    }
+    System.out.println(i);
+}
+
+@Test
+public void test8_UsingJava8StreamApiParallel(){
+    System. out .println(map.entrySet().parallelStream().mapToLong(e -> e.getKey() + e.getValue()).sum());
+}
+
+
+
+
+
+
+
+
+22.	Try catch
+try{
+            Scanner sc = new Scanner(System.in);
+            int a = sc.nextInt();
+           
+            int b = sc.nextInt();
+          
+            int c = a/b;
+            System.out.print(c);
+        }
+        catch(InputMismatchException ob){
+            System.out.print("java.util.InputMismatchException");
+        }
+        catch(Exception e)
+        {
+            System.out.print(e);
+        }
+
+public static long power(int a,int b) throws Exception{
+        long la = a;
+        long lb = b;
+             long c = (long)Math.pow(la,lb);
+             if(la==0 && lb==0)  {
+                 throw new Exception("n and p should not be zero.");
+             }
+             else if(la<0 || lb <0) {
+             throw new Exception("n or p should not be negative.");
+             }
+             else
+             return c;
+    }
+}
+
+            try {
+                System.out.println(my_calculator.power(n, p));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+23.	Varargs
+
+class Add {
+    public void add(int... intArgs) {
+        int sum = 0;
+        String separator = "";
+        for (int i : intArgs) {
+            sum += i;
+            System.out.print(separator + i);
+            separator = "+";            
+        }
+        System.out.println("=" + sum);
+    }
+}
+public class Solution {
+
+    public static void main(String[] args) {
+       try{
+            BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+            int n1=Integer.parseInt(br.readLine());
+            int n2=Integer.parseInt(br.readLine());
+            int n3=Integer.parseInt(br.readLine());
+            int n4=Integer.parseInt(br.readLine());
+            int n5=Integer.parseInt(br.readLine());
+            int n6=Integer.parseInt(br.readLine());
+            Add ob=new Add();
+            ob.add(n1,n2);
+            ob.add(n1,n2,n3);
+            ob.add(n1,n2,n3,n4,n5);    
+            ob.add(n1,n2,n3,n4,n5,n6);
+            Method[] methods=Add.class.getDeclaredMethods();
+            Set<String> set=new HashSet<>();
+            boolean overload=false;
+            for(int i=0;i<methods.length;i++)
+            {
+                if(set.contains(methods[i].getName()))
+                {
+                    overload=true;
+                    break;
+                }
+                set.add(methods[i].getName());
+                
+            }
+            if(overload)
+            {
+                throw new Exception("Overloading not allowed");
+            }
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+}
+
+24.	Reflection
+
+public class Solution {
+
+        public static void main(String[] args){
+             Class student = Student.class;
+        Method[] methods = student.getDeclaredMethods();
+
+        ArrayList<String> methodList = new ArrayList<>();
+        for(Method m : methods){
+            methodList.add(m.getName());
+        }
+        Collections.sort(methodList);
+        for(String name: methodList){
+            System.out.println(name);
+        }
+        }
+    }
+
+25.	Visitor : binary tree
+
+
+import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+enum Color {
+    RED, GREEN
+}
+
+abstract class Tree {
+
+    private int value;
+    private Color color;
+    private int depth;
+
+    public Tree(int value, Color color, int depth) {
+        this.value = value;
+        this.color = color;
+        this.depth = depth;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public int getDepth() {
+        return depth;
+    }
+
+    public abstract void accept(TreeVis visitor);
+}
+
+class TreeNode extends Tree {
+
+    private ArrayList<Tree> children = new ArrayList<>();
+
+    public TreeNode(int value, Color color, int depth) {
+        super(value, color, depth);
+    }
+
+    public void accept(TreeVis visitor) {
+        visitor.visitNode(this);
+
+        for (Tree child : children) {
+            child.accept(visitor);
+        }
+    }
+
+    public void addChild(Tree child) {
+        children.add(child);
+    }
+}
+
+class TreeLeaf extends Tree {
+
+    public TreeLeaf(int value, Color color, int depth) {
+        super(value, color, depth);
+    }
+
+    public void accept(TreeVis visitor) {
+        visitor.visitLeaf(this);
+    }
+}
+
+abstract class TreeVis
+{
+    public abstract int getResult();
+    public abstract void visitNode(TreeNode node);
+    public abstract void visitLeaf(TreeLeaf leaf);
+
+}
+
+class SumInLeavesVisitor extends TreeVis {
+
+    int sumInLeaves = 0;
+
+    public int getResult() {
+        return sumInLeaves;
+    }
+
+    public void visitNode(TreeNode node) {
+        // empty return
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        sumInLeaves += leaf.getValue();
+    }
+}
+
+class ProductOfRedNodesVisitor extends TreeVis {
+    long productOfRedNodes = 1L;
+
+    public int getResult() {
+        return (int) (productOfRedNodes);
+    }
+
+    void multiply(Tree tree) {
+        if (tree.getColor() == Color.RED)
+            productOfRedNodes = (productOfRedNodes * tree.getValue()) % (1000000007);
+    }
+
+    public void visitNode(TreeNode node) {
+        multiply(node);
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        multiply(leaf);
+    }
+}
+
+class FancyVisitor extends TreeVis {
+    int sumOfValuesNonLeafEvenDepth = 0;
+    int sumOfValuesGreenLeaf = 0;
+
+    public int getResult() {
+
+        return Math.abs(sumOfValuesGreenLeaf - sumOfValuesNonLeafEvenDepth);
+    }
+
+    public void visitNode(TreeNode node) {
+        if (node.getDepth() % 2 != 0) return;
+        sumOfValuesNonLeafEvenDepth += node.getValue();
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        if (leaf.getColor() != Color.GREEN) return;
+        sumOfValuesGreenLeaf += leaf.getValue();
+    }
+}
+
+public class Solution {
+    static Map<Integer, Tree> tree = new HashMap<>();
+
+    public static Tree solve() {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        Map<Integer, Object[]> nodeAtts = new HashMap<Integer, Object[]>();
+
+        for (int i = 0; i < n; i++)
+            nodeAtts.put(i + 1, new Object[]{sc.nextInt(), null});
+
+        for (int i = 0; i < n; i++)
+            nodeAtts.get(i + 1)[1] = sc.nextInt() == 0 ? Color.RED : Color.GREEN;
+
+        Map<Integer, ArrayList<Integer>> edges = new HashMap<Integer, ArrayList<Integer>>();
+
+        for (int i = 1; i <= n; i++)
+            edges.put(i, new ArrayList<Integer>());
+
+        for (int i = 1; i < n; i++) {
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            edges.get(u).add(v);
+            edges.get(v).add(u);
+        }
+        Tree root = new TreeNode((Integer) nodeAtts.get(1)[0], (Color) nodeAtts.get(1)[1], 0);
+        tree.put(1, root);
+
+        DFS(n, edges, nodeAtts);
+        return tree.get(1);
+    }
+
+    private static void DFS(int n, Map<Integer, ArrayList<Integer>> edges, Map<Integer, Object[]> nodeAtts) {
+        boolean[] visited = new boolean[n + 1];
+        TreeNode parent = (TreeNode) tree.get(1);
+        DFSUtil(parent, 1, visited, edges, nodeAtts);
+
+    }
+
+    private static void DFSUtil(TreeNode parent, int v, boolean[] visited, Map<Integer, ArrayList<Integer>> edges, Map<Integer, Object[]> nodeAtts) {
+        visited[v] = true;
+        if (edges.get(v).size() == 1 && v != 1) {
+            TreeLeaf treeLeaf = new TreeLeaf((Integer) nodeAtts.get(v)[0], (Color) nodeAtts.get(v)[1], parent.getDepth() + 1);
+            parent.addChild(treeLeaf);
+            tree.put(v, treeLeaf);
+            return;
+        }
+
+        TreeNode treeNode;
+        if (v != 1) {
+            treeNode = new TreeNode((Integer) nodeAtts.get(v)[0], (Color) nodeAtts.get(v)[1], parent.getDepth() + 1);
+            parent.addChild(treeNode);
+            tree.put(v, treeNode);
+
+        } else
+            treeNode = (TreeNode) tree.get(1);
+
+        Iterator<Integer> iterator = edges.get(v).iterator();
+        while (iterator.hasNext()) {
+            int n = iterator.next();
+            if (!visited[n]) {
+                DFSUtil(treeNode, n, visited, edges, nodeAtts);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+          Tree root = solve();
+        SumInLeavesVisitor vis1 = new SumInLeavesVisitor();
+          ProductOfRedNodesVisitor vis2 = new ProductOfRedNodesVisitor();
+          FancyVisitor vis3 = new FancyVisitor();
+
+          root.accept(vis1);
+          root.accept(vis2);
+          root.accept(vis3);
+
+          int res1 = vis1.getResult();
+          int res2 = vis2.getResult();
+          int res3 = vis3.getResult();
+
+          System.out.println(res1);
+         System.out.println(res2);
+        System.out.println(res3);
+    }
+}
+
+26.	Annotation
+
+import java.lang.annotation.*;
+import java.lang.reflect.*;
+import java.util.*;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@interface FamilyBudget {
+    String userRole() default "GUEST";
+
+    int budgetLimit() default 0;
+}
+
+class FamilyMember {
+    @FamilyBudget(userRole = "SENIOR", budgetLimit = 100)
+    public void seniorMember(int budget, int moneySpend) {
+        System.out.println("Senior Member");
+        System.out.println("Spend: " + moneySpend);
+        System.out.println("Budget Left: " + (budget - moneySpend));
+    }
+
+    @FamilyBudget(userRole = "JUNIOR", budgetLimit = 50)
+    public void juniorUser(int budget, int moneySpend) {
+        System.out.println("Junior Member");
+        System.out.println("Spend: " + moneySpend);
+        System.out.println("Budget Left: " + (budget - moneySpend));
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int testCases = Integer.parseInt(in.nextLine());
+        while (testCases > 0) {
+            String role = in.next();
+            int spend = in.nextInt();
+            try {
+                Class annotatedClass = FamilyMember.class;
+                Method[] methods = annotatedClass.getMethods();
+                for (Method method : methods) {
+                    if (method.isAnnotationPresent(FamilyBudget.class)) {
+                        FamilyBudget family = method
+                                .getAnnotation(FamilyBudget.class);
+                        String userRole = family.userRole();
+                        int budgetLimit = family.budgetLimit();
+                        if (userRole.equals(role)) {
+                            if(spend<=budgetLimit){
+                                method.invoke(FamilyMember.class.newInstance(),
+                                        budgetLimit, spend);
+                            }else{
+                                System.out.println("Budget Limit Over");
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            testCases--;
+        }
+    }
+}
+
+
+27.	Covariant
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+//Complete the classes below
+class Flower{
+    String whatsYourName(){
+        return "I have many names and types.";
+    }
+}
+class Jasmine extends Flower{
+    @Override
+    String whatsYourName(){
+        return "Jasmine";
+    }
+}
+class Lily extends Flower{
+    @Override
+    String whatsYourName(){
+        return "Lily";
+    }
+}
+class Lotus extends Flower{
+    @Override
+    String whatsYourName(){
+        return "Lotus";
+    }
+}
+
+class Region{
+    Flower yourNationalFlower(){
+        return new Flower();
+    }
+}
+class WestBengal extends Region{
+    @Override
+    Jasmine yourNationalFlower(){
+        return new Jasmine();
+    }
+}
+class Karnataka extends Region{
+    @Override
+    Lotus yourNationalFlower(){
+        return new Lotus();
+    }
+}
+class AndhraPradesh extends Region{
+    @Override
+    Lily yourNationalFlower(){
+        return new Lily();
+    }
+}
+
+
+public class Solution {
+  public static void main(String[] args) throws IOException {
+      BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+      String s = reader.readLine().trim();
+      Region region = null;
+      switch (s) {
+        case "WestBengal":
+          region = new WestBengal();
+          break;
+        case "AndhraPradesh":
+          region = new AndhraPradesh();
+          break;
+      }
+      Flower flower = region.yourNationalFlower();
+      System.out.println(flower.whatsYourName());
+    }
+}
+
+28.	MD5
+public class Solution {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        /* Read and save the input String */
+        Scanner scan = new Scanner(System.in);
+        String str = scan.next();
+        scan.close();
+        
+        /* Encode the String using MD5 */
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(str.getBytes());
+        byte[] digest = md.digest();
+        
+        /* Print the encoded value in hexadecimal */
+        for (byte b : digest) {
+            System.out.format("%02x", b);
+        }
+    }
+}
+
+
+29.	SHA-256
+public class Solution {
+
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        Scanner input = new Scanner(System.in);
+        MessageDigest m = MessageDigest.getInstance("SHA-256");
+        m.reset();
+        m.update(input.nextLine().getBytes());
+        for (byte i : m.digest()) {
+            System.out.print(String.format("%02x", i));
+        }
+        System.out.println();
+    }
+}
+
+30.	Tree leaf
+class SumInLeavesVisitor extends TreeVis {
+    long sum = 0;
+
+    public int getResult() {
+        return (int) sum;
+    }
+
+    public void visitNode(TreeNode node) {
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        sum += leaf.getValue();
+    }
+}
+
+class ProductOfRedNodesVisitor extends TreeVis {
+    BigInteger prod = BigInteger.ONE;
+
+    public int getResult() {
+        return prod.mod(BigInteger.valueOf(1000000007)).intValue();
+    }
+
+    public void visitNode(TreeNode node) {
+        if (node.getColor() == Color.RED) {
+            prod = prod.multiply(BigInteger.valueOf(node.getValue()));
+        }
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        if (leaf.getColor() == Color.RED) {
+            prod = prod.multiply(BigInteger.valueOf(leaf.getValue()));
+        }
+    }
+}
+
+class FancyVisitor extends TreeVis {
+    long evenSum = 0;
+    long greenSum = 0;
+
+    public int getResult() {
+
+        return (int) Math.abs(evenSum - greenSum);
+    }
+
+    public void visitNode(TreeNode node) {
+        if (node.getDepth() % 2 == 0) {
+            evenSum += node.getValue();
+        }
+    }
+
+    public void visitLeaf(TreeLeaf leaf) {
+        if (leaf.getColor() == Color.GREEN) {
+            greenSum += leaf.getValue();
+        }
+    }
+}
+
+public class Solution {
+  
+    public static Tree solve() {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+
+        ns = new Node[n + 1]; // ignore 0
+        for (int i = 1; i < n + 1; i++) {
+            ns[i] = new Node();
+            ns[i].val = in.nextInt();
+        }
+
+        for (int i = 1; i < n + 1; i++) {
+            ns[i].col = in.nextInt() == 1 ? Color.GREEN : Color.RED;
+        }
+        for (int i = 0; i < n - 1; i++) {
+            int from = in.nextInt();
+            int to = in.nextInt();
+            ns[from].connections.add(to);
+            ns[to].connections.add(from);
+        }
+
+        Tree ret = buildNode(1, 0, 0);
+        return ret;
+    }
+
+    static Tree buildNode(int idx, int depth, int parent) {
+
+        Node n = ns[idx];
+        if (n.connections.contains(parent)) {
+            n.connections.remove(parent);
+        }
+        if (n.connections.size() != 0) {
+            TreeNode ret = new TreeNode(n.val, n.col, depth);
+            for (int i : n.connections) {
+                ret.addChild(buildNode(i, depth + 1, idx));
+            }
+            return ret;
+        } else {
+            return new TreeLeaf(n.val, n.col, depth);
+        }
+    }
+
+    static Node[] ns;
+
+    static class Node {
+        int val;
+        Color col;
+        HashSet<Integer> connections = new HashSet<>();
+
+    }
+
+31.	Array
+    long[] baseArr = new long[n+1];
+    long maxSum = 0;
+    if(queries == null || queries.size() ==0){
+        return 0;
+    }
+    for(List<Integer> query : queries){
+        int start = query.get(0)-1;
+        int end = query.get(1) - 1;
+        baseArr[start]+= query.get(2);
+        baseArr[end+1]-= query.get(2);
+    }
+    int sum=0;
+    for(long item : baseArr){
+        sum+=item;
+        maxSum = Math.max(sum,maxSum);
+    }
+    return maxSum;
+}
+
+32.	Self balance tree
+/* Class node is defined as :
+    class Node 
+       int val;   //Value
+       int ht;      //Height
+       Node left;   //Left child
+       Node right;   //Right child
+
+   */
+
+static int h(Node x)
+    {
+    return x != null ? x.ht : -1;
+}
+
+static void updateh(Node x)
+    {
+    if(x == null)return;
+    x.ht = Math.max(h(x.left), h(x.right)) + 1;
+}
+
+   static Node insert(Node root,int val)
+    {
+       if(root == null){
+           Node n = new Node();
+           n.val = val;
+           n.ht = 0;
+           return n;
+       }
+       if(val < root.val){
+           root.left = insert(root.left, val);
+           int bf = h(root.left) - h(root.right);
+           if(bf > 1){
+               Node A = root.left;
+               int bfl = h(root.left.left) - h(root.left.right);
+               if(bfl < 0){
+                   Node B = root.left.right;
+                   root.left = B;
+                   A.right = B.left;
+                   B.left = A;
+                   updateh(A);
+                   updateh(B);
+               }
+           }
+           if(bf > 1){
+               Node A = root.left;
+               Node B = A.left;
+               root.left = A.right;
+               A.right = root;
+               updateh(root);
+               updateh(A);
+               root = A;
+           }
+       }else{
+           root.right = insert(root.right, val);
+           int bf = h(root.left) - h(root.right);
+           if(bf < -1){
+               Node A = root.right;
+               int bfl = h(root.right.left) - h(root.right.right);
+               if(bfl > 0){
+                   Node B = root.right.left;
+                   root.right = B;
+                   A.left = B.right;
+                   B.right = A;
+                   updateh(A);
+                   updateh(B);
+               }
+           }
+           if(bf < -1){
+               Node A = root.right;
+               Node B = A.right;
+               root.right = A.left;
+               A.left = root;
+               updateh(root);
+               updateh(A);
+               root = A;
+           }
+       }
+       updateh(root);
+       return root;
+    }
+
+33.	Sharlock
+public static String balancedSums(List<Integer> arr) {
+    // Write your code here
+     int rightsum=0;
+     int leftsum=0;
+    for(Integer i : arr)
+       { rightsum+=i;}
+    for(Integer i : arr){
+        rightsum-=i;
+        if(rightsum==leftsum)
+           { return "YES";}
+        leftsum+=i;
+    }
+    return "NO";
+
+    }
+}
+
+34.	Connected cell
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int m = in.nextInt();
+        int n = in.nextInt();
+        int[][] matrix = new int[m][n];
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                matrix[i][j] = in.nextInt();
+            }
+        }
+        in.close();
+        int maxRegion = 0;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(matrix[i][j] == 1){
+                    int count = countRegion(matrix, m, n, i, j);
+                    //System.out.println("count:"+count);
+                    if(count > maxRegion)
+                        maxRegion = count;
+                }
+            }
+        }
+        System.out.println(maxRegion);
+    }
+    
+    static int countRegion(int[][] matrix, int m, int n, int x, int y) {
+        if ((x < 0) || (x >= m) || (y < 0) || (y >= n) || (matrix[x][y] == 0))
+                return 0;
+        matrix[x][y] = 0;
+        return 1 + countRegion(matrix,m,n, x - 1, y) 
+                + countRegion(matrix,m,n,x + 1, y) 
+                + countRegion(matrix,m,n,x, y - 1) 
+                + countRegion(matrix,m,n,x, y + 1)
+                + countRegion(matrix, m, n, x+1, y+1)
+                + countRegion(matrix, m, n, x-1, y+1)
+                + countRegion(matrix, m, n, x+1, y-1)
+                + countRegion(matrix, m, n, x-1, y-1);
+    }
+}
+
+
+35.	Short Palindrome
+public class Solution {
+
+    public static final int MOD = 1000000000 + 7;
+    public static void main(String[] args) {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	String line = null;
+    	try {
+    		line = br.readLine();
+    		br.close();
+    	} catch (Exception ex) {
+    		
+    	}
+	long[] suffixCount = new long[26];
+	long[][] suffixPairCount = new long[26][26];
+	for (int i = line.length() - 1; i >= 0; --i) {
+		int c = line.charAt(i) - 'a';
+		for (int j = 0; j < 26; j++) {
+			suffixPairCount[c][j] = (suffixPairCount[c][j] + suffixCount[j]) % MOD;
+		}
+		suffixCount[c] = (suffixCount[c] + 1) % MOD;
+	}
+	long[] prefixCount = new long[26];
+	long[][] prefixPairCount = new long[26][26];
+	long ret = 0;
+	for (int i = 0; i < line.length(); ++i) {
+		int c = line.charAt(i) - 'a';
+		for (int j = 0; j < 26; j++) {
+			long t = suffixCount[j];
+			if (j == c) t--;
+			t %= MOD;
+			ret = (ret + (prefixPairCount[j][c] * t) % MOD) % MOD;
+		}
+		suffixCount[c] = (suffixCount[c] + MOD - 1) % MOD;
+		for (int j = 0; j < 26; j++) {
+			suffixPairCount[c][j] = (suffixPairCount[c][j] + MOD - suffixCount[j]) % MOD;
+			prefixPairCount[j][c] = (prefixPairCount[j][c] + prefixCount[j]) % MOD;
+		}
+		prefixCount[c] = (prefixCount[c] + 1) % MOD;
+	}
+	System.out.println(ret);
+    }
+}
+
+36.	Arcade
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        List<Integer> scores = new ArrayList<Integer>();
+        for (int i = 0; i < n; i++){
+            int score = in.nextInt();
+            if (scores.size() == 0 || scores.get(scores.size() - 1) != score)
+                scores.add(score);
+        }
+        int m = in.nextInt();
+        for (int i = 0; i < m; i++){
+            int score = in.nextInt();
+            int min = 0;
+            int max = scores.size();
+            while (max > min){
+                int mid = (min + max) / 2;
+                if (scores.get(mid) <= score)
+                    max = mid;
+                else
+                    min = mid + 1;
+            }
+            System.out.println(min + 1);
+        }
+    }
+}
+
+
