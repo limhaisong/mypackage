@@ -1,0 +1,240 @@
+1. Find Pairs with a Given Sum
+
+import java.util.HashSet;
+
+public class Solution {
+    public static void findPairs(int[] nums, int k) {
+        HashSet<Integer> seen = new HashSet<>();
+        HashSet<String> output = new HashSet<>();
+        
+        for (int num : nums) {
+            int target = k - num;
+            if (seen.contains(target)) {
+                output.add(Math.min(num, target) + "," + Math.max(num, target));
+            }
+            seen.add(num);
+        }
+        
+        for (String pair : output) {
+            System.out.println(pair);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 5, 7, -1, 5};
+        int k = 6;
+        findPairs(nums, k);  // Output: 1,5
+    }
+}
+
+2. Longest Substring Without Repeating Characters
+
+import java.util.HashSet;
+
+public class Solution {
+    public static int lengthOfLongestSubstring(String s) {
+        int i = 0, j = 0, max = 0;
+        HashSet<Character> set = new HashSet<>();
+        
+        while (j < s.length()) {
+            if (!set.contains(s.charAt(j))) {
+                set.add(s.charAt(j));
+                j++;
+                max = Math.max(set.size(), max);
+            } else {
+                set.remove(s.charAt(i));
+                i++;
+            }
+        }
+        return max;
+    }
+
+    public static void main(String[] args) {
+        String s = "abcabcbb";
+        System.out.println(lengthOfLongestSubstring(s));  // Output: 3
+    }
+}
+
+3. Object-Oriented Programming (OOP)
+
+class Book {
+    private String title;
+    private boolean isBorrowed;
+
+    public Book(String title) {
+        this.title = title;
+        this.isBorrowed = false;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isBorrowed() {
+        return isBorrowed;
+    }
+
+    public void borrowBook() {
+        if (!isBorrowed) {
+            isBorrowed = true;
+            System.out.println(title + " has been borrowed.");
+        } else {
+            System.out.println(title + " is already borrowed.");
+        }
+    }
+
+    public void returnBook() {
+        if (isBorrowed) {
+            isBorrowed = false;
+            System.out.println(title + " has been returned.");
+        } else {
+            System.out.println(title + " was not borrowed.");
+        }
+    }
+}
+
+class User {
+    private String name;
+    private int bookLimit = 3;
+    private int booksBorrowed = 0;
+
+    public User(String name) {
+        this.name = name;
+    }
+
+    public void borrowBook(Book book) {
+        if (booksBorrowed < bookLimit) {
+            book.borrowBook();
+            booksBorrowed++;
+        } else {
+            System.out.println(name + " cannot borrow more books.");
+        }
+    }
+
+    public void returnBook(Book book) {
+        book.returnBook();
+        booksBorrowed--;
+    }
+}
+
+public class LibraryManagementSystem {
+    public static void main(String[] args) {
+        Book book1 = new Book("Java Programming");
+        Book book2 = new Book("Data Structures");
+
+        User user = new User("John");
+
+        user.borrowBook(book1);
+        user.borrowBook(book2);
+        user.returnBook(book1);
+    }
+}
+
+4. thread - Concurrency in Java
+
+class MyThread extends Thread {
+    private String threadName;
+
+    public MyThread(String name) {
+        threadName = name;
+    }
+
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println(threadName + " is running: " + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println(threadName + " interrupted.");
+            }
+        }
+        System.out.println(threadName + " has finished.");
+    }
+}
+
+public class ConcurrencyExample {
+    public static void main(String[] args) {
+        MyThread thread1 = new MyThread("Thread 1");
+        MyThread thread2 = new MyThread("Thread 2");
+
+        thread1.start();
+        thread2.start();
+    }
+}
+
+5. Sorting and Searching
+
+public class MergeSort {
+    public static void mergeSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int middle = (left + right) / 2;
+
+            // Sort first and second halves
+            mergeSort(arr, left, middle);
+            mergeSort(arr, middle + 1, right);
+
+            // Merge the sorted halves
+            merge(arr, left, middle, right);
+        }
+    }
+
+    public static void merge(int[] arr, int left, int middle, int right) {
+        int n1 = middle - left + 1;
+        int n2 = right - middle;
+
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        for (int i = 0; i < n1; i++) L[i] = arr[left + i];
+        for (int j = 0; j < n2; j++) R[j] = arr[middle + 1 + j];
+
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) arr[k++] = L[i++];
+            else arr[k++] = R[j++];
+        }
+
+        while (i < n1) arr[k++] = L[i++];
+        while (j < n2) arr[k++] = R[j++];
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 11, 13, 5, 6, 7};
+        mergeSort(arr, 0, arr.length - 1);
+
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+    }
+}
+
+
+6. Dynamic Programming - Longest Increasing Subsequence
+
+public class LongestIncreasingSubsequence {
+    public static int lis(int[] arr) {
+        int n = arr.length;
+        int[] lis = new int[n];
+        for (int i = 0; i < n; i++) lis[i] = 1;
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < i; j++) {
+                if (arr[i] > arr[j] && lis[i] < lis[j] + 1) {
+                    lis[i] = lis[j] + 1;
+                }
+            }
+        }
+
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            max = Math.max(max, lis[i]);
+        }
+        return max;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 22, 9, 33, 21, 50, 41, 60, 80};
+        System.out.println("Length of LIS is " + lis(arr));  // Output: 6
+    }
+}
+
