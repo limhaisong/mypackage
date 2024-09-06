@@ -1,0 +1,267 @@
+1. Binary Tree Traversals (Inorder, Preorder, Postorder)
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+class BinaryTree {
+
+    Node root;
+
+    // Inorder traversal (Left, Root, Right)
+    void inorder(Node node) {
+        if (node == null)
+            return;
+
+        inorder(node.left);
+        System.out.print(node.data + " ");
+        inorder(node.right);
+    }
+
+    // Preorder traversal (Root, Left, Right)
+    void preorder(Node node) {
+        if (node == null)
+            return;
+
+        System.out.print(node.data + " ");
+        preorder(node.left);
+        preorder(node.right);
+    }
+
+    // Postorder traversal (Left, Right, Root)
+    void postorder(Node node) {
+        if (node == null)
+            return;
+
+        postorder(node.left);
+        postorder(node.right);
+        System.out.print(node.data + " ");
+    }
+
+    public static void main(String[] args) {
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+
+        System.out.println("Inorder traversal:");
+        tree.inorder(tree.root);
+
+        System.out.println("\nPreorder traversal:");
+        tree.preorder(tree.root);
+
+        System.out.println("\nPostorder traversal:");
+        tree.postorder(tree.root);
+    }
+}
+
+
+2. Find the Height of a Binary Tree
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+class BinaryTree {
+
+    Node root;
+
+    // Function to calculate height of binary tree
+    int height(Node node) {
+        if (node == null)
+            return 0;
+        else {
+            // Compute height of each subtree
+            int leftHeight = height(node.left);
+            int rightHeight = height(node.right);
+
+            // Return the larger one + 1
+            return Math.max(leftHeight, rightHeight) + 1;
+        }
+    }
+
+    public static void main(String[] args) {
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+
+        System.out.println("Height of tree is : " + tree.height(tree.root));
+    }
+}
+
+3. Check if a Binary Tree is Balanced
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+class BinaryTree {
+
+    Node root;
+
+    // Helper function to check if tree is balanced
+    boolean isBalanced(Node node) {
+        return checkHeight(node) != -1;
+    }
+
+    // Function to check the height of tree and return -1 if unbalanced
+    int checkHeight(Node node) {
+        if (node == null)
+            return 0;
+
+        int leftHeight = checkHeight(node.left);
+        if (leftHeight == -1)
+            return -1;  // Left subtree is unbalanced
+
+        int rightHeight = checkHeight(node.right);
+        if (rightHeight == -1)
+            return -1;  // Right subtree is unbalanced
+
+        if (Math.abs(leftHeight - rightHeight) > 1)
+            return -1;  // Current node is unbalanced
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    public static void main(String[] args) {
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+        tree.root.left.left.left = new Node(6);
+
+        if (tree.isBalanced(tree.root))
+            System.out.println("Tree is balanced");
+        else
+            System.out.println("Tree is not balanced");
+    }
+}
+
+4. Lowest Common Ancestor (LCA) in a Binary Tree
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+class BinaryTree {
+
+    Node root;
+
+    // Function to find LCA of n1 and n2
+    Node findLCA(Node node, int n1, int n2) {
+        if (node == null)
+            return null;
+
+        // If either n1 or n2 matches with the root's key, return the root
+        if (node.data == n1 || node.data == n2)
+            return node;
+
+        // Recur for left and right subtrees
+        Node leftLCA = findLCA(node.left, n1, n2);
+        Node rightLCA = findLCA(node.right, n1, n2);
+
+        // If both of the above calls return non-null, then one node is in one subtree and the other is in the other subtree
+        if (leftLCA != null && rightLCA != null)
+            return node;
+
+        // Otherwise, check if the left subtree or right subtree has the LCA
+        return (leftLCA != null) ? leftLCA : rightLCA;
+    }
+
+    public static void main(String[] args) {
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+        tree.root.right.left = new Node(6);
+        tree.root.right.right = new Node(7);
+
+        System.out.println("LCA of 4 and 5 is " + tree.findLCA(tree.root, 4, 5).data);
+        System.out.println("LCA of 4 and 6 is " + tree.findLCA(tree.root, 4, 6).data);
+        System.out.println("LCA of 3 and 4 is " + tree.findLCA(tree.root, 3, 4).data);
+        System.out.println("LCA of 2 and 4 is " + tree.findLCA(tree.root, 2, 4).data);
+    }
+}
+
+5. Check if a Binary Tree is a Binary Search Tree (BST)
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+class BinaryTree {
+
+    Node root;
+
+    // Helper function to check if tree is BST
+    boolean isBST() {
+        return isBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    // Utility function to check if tree is BST
+    boolean isBSTUtil(Node node, int min, int max) {
+        // Base case: empty tree is a BST
+        if (node == null)
+            return true;
+
+        // If this node violates the min/max constraint, return false
+        if (node.data < min || node.data > max)
+            return false;
+
+        // Check recursively for left and right subtrees with updated constraints
+        return (isBSTUtil(node.left, min, node.data - 1) &&
+                isBSTUtil(node.right, node.data + 1, max));
+    }
+
+    public static void main(String[] args) {
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(2);
+        tree.root.left = new Node(1);
+        tree.root.right = new Node(3);
+
+        if (tree.isBST())
+            System.out.println("Tree is a BST");
+        else
+            System.out.println("Tree is not a BST");
+    }
+}
+
